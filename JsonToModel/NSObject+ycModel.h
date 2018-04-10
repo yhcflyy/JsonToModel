@@ -10,13 +10,16 @@
 
 @protocol YcModelProtocol
 
+@optional
 + (NSDictionary*)yc_propertyKeyReplaceWithValue;
+
++ (NSDictionary*)yc_objectClassInArray;
 
 @end
 
 
 
-@interface NSObject (ycModel)
+@interface NSObject (ycModel)<YcModelProtocol>
 
 + (instancetype)yc_initWithDict:(NSDictionary*)dict;
 

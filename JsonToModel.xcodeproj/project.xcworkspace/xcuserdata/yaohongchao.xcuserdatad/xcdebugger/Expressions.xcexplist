@@ -10,5 +10,19 @@
             </PersistentString>
          </PersistentStrings>
       </ContextState>
+      <ContextState
+         contextName = "-[ViewController viewDidLoad]:ViewController.m">
+      </ContextState>
+      <ContextState
+         contextName = "__38+[NSObject(ycModel) yc_initWithArray:]_block_invoke:NSObject+ycModel.m">
+      </ContextState>
+      <ContextState
+         contextName = "+[NSObject(ycModel) yc_initWithDict:]:NSObject+ycModel.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "propertyValueType">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
    </ContextStates>
 </VariablesViewState>

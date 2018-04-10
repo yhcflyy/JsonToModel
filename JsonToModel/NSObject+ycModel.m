@@ -23,16 +23,30 @@ NSString *const YCClassType_other   =   @"其它";
         objc_property_t property = arrPropertys[i];
         //获取属性名称字符
         NSString *propertyName = [[NSString alloc] initWithUTF8String:property_getName(property)];
+        NSString *propertyNameNew;
+        if ([self respondsToSelector:@selector(yc_propertyKeyReplaceWithValue)]){
+            propertyNameNew = [[self yc_propertyKeyReplaceWithValue] objectForKey:propertyName];
+        }
+        if (!propertyNameNew) propertyNameNew = propertyName;
         NSLog(@"属性名:%@",propertyName);
-        id propertyValue = dict[propertyName];
-
+        id propertyValue = dict[propertyNameNew];
+        if (!propertyValue) continue;
         NSDictionary *dictType = [self propertyTypeFromProperty:property];
         NSString *classType = [dictType objectForKey:@"classType"];
         NSString *type = [dictType objectForKey:@"type"];
         if ([type isEqualToString:YCClassType_object]){
             //如果是对象类型
             if ([classType isEqualToString:@"NSArray"] || [classType isEqualToString:@"NSMutableArray"]){
-                
+                if ([self respondsToSelector:@selector(yc_objectClassInArray)]){
+                    id propertyValueType = [[self yc_objectClassInArray] objectForKey:propertyName];
+                    NSLog(@"");
+                    if ([propertyValueType isKindOfClass:[NSString class]]){
+                        propertyValue = [NSClassFromString(propertyValueType) yc_initWithArray:propertyValue];
+                    }else{
+                        propertyValue = [propertyValueType yc_initWithArray:propertyValue];
+                    }
+                    if (propertyValue) [obj setValue:propertyValue forKey:propertyName];
+                }
             }else if ([classType isEqualToString:@"NSDictionary"] || [classType isEqualToString:@"NSMutableDictionary"]){
                 //一般不处理
             }else if ([classType isEqualToString:@"NSString"] || [classType isEqualToString:@"NSMutableString"]){
@@ -45,6 +59,12 @@ NSString *const YCClassType_other   =   @"其它";
             
         }else if ([type isEqualToString:YCClassType_basic]){
             //基本类型
+            if ([propertyValue isKindOfClass:[NSString class]]){
+                propertyValue = [[[NSNumberFormatter alloc] init] numberFromString:propertyValue];
+            }else{
+                
+            }
+            if (propertyValue) [obj setValue:propertyValue forKey:propertyName];
         }else{
             //其他类型
         }

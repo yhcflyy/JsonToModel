@@ -19,7 +19,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
     NSDictionary *dicTest = @{@"id":@"121",
                               @"name":@"张三",
                               @"phone":@"110",

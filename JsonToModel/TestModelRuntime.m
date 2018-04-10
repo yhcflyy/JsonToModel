@@ -10,12 +10,12 @@
 
 @implementation TestModelRuntime
 
-+ (NSDictionary *)yj_objectClassInArray
-{
-    return @{@"arrUsers":@"UserModel"};
++ (NSDictionary*)yc_objectClassInArray{
+    return @{@"arrUsers":@"UserModelRuntime"};
 }
 
-+ (NSDictionary *)yj_propertykeyReplacedWithValue
+
++ (NSDictionary *)yc_propertyKeyReplaceWithValue
 {
     return @{@"_id":@"id"};
 }
